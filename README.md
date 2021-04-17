@@ -2,7 +2,7 @@
 This repo provides the source code & data for our paper: \
 _Too Much in Common: Shifting of Embeddings in Transformer Language Models and its Implications_
 
-<img src="img/fig1.png" alt="Figure 1" width="60%"/>
+<img src="img/fig1.png" alt="Figure 1" width="80%"/>
 
 ## Setup
 To install torch version matching your system see the [official guide](https://pytorch.org/).
