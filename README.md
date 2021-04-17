@@ -2,15 +2,16 @@
 This repo provides the source code & data for our paper: \
 _Too Much in Common: Shifting of Embeddings in Transformer Language Models and its Implications_
 
+<img src="img/fig1.png" alt="Figure 1" width="60%"/>
+
 ## Setup
-To install torch version matching your system follow steps on https://pytorch.org/.
+To install torch version matching your system see the [official guide](https://pytorch.org/).
 
 ```
-conda create -n tmic python=3.7
-conda activate tmic
+conda create -n tmic python=3.8 && conda activate tmic
 conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch -c conda-forge
-conda install transformers -c conda-forge
-conda install numpy scipy pandas matplotlib seaborn -c conda-forge
+conda install transformers numpy scipy scikit-learn pandas matplotlib seaborn -c conda-forge
+chmod +x run.sh
 ```
 
 ## Running
@@ -28,6 +29,8 @@ experiments/benchmarks/
 experiments/plots/
 ```
 if they do not yet exist. This is where the respective results can be found. 
+Plots are also available to download from [here](https://drive.google.com/file/d/1b_Dv5m7s0-FrdriN5Oh4BF8ZwJs04YfH/view?usp=sharing).
+(~75mb)
 
 ### Other running options
 

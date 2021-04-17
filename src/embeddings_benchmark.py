@@ -5,21 +5,20 @@ import json
 from datetime import datetime
 from transformers import AutoTokenizer, AutoModel
 
-from post_processing import all_but_the_top, all_but_the_top_uncentered, remove_mean, identity
+from post_processing import all_but_the_top, remove_mean, identity
 from utils import (
     iter_files,
     load_embeddings_benchmark,
     cosine_similarity,
     inner_product_similarity,
-    eval_pearsonr,
-    to_latex_table
+    eval_pearsonr
 )
-
 
 MODELS = ['gpt2', 'gpt2-medium',
           'bert-base-cased', 'bert-large-cased',
           'roberta-base', 'roberta-large']
 
+PATH_TO_DATA_DIR = "datasets/"
 DATASET_PATH_MAP = OrderedDict(
     men=os.path.join(PATH_TO_DATA_DIR, 'MEN_dataset_lemma_form_full'),
     rw=os.path.join(PATH_TO_DATA_DIR, 'rw.txt'),
@@ -85,8 +84,7 @@ def main(models_list, post_processing_funcs, dataset_path_map, out_path):
 
 
 if __name__ == "__main__":
-
-    output_file = os.path.join(os.getcwd(), os.pardir,
+    output_file = os.path.join(os.getcwd(),
                                'experiments/benchmarks/',
                                '{}.json'.format(datetime.now().strftime("%d%m%Y%H%M%S")))
 
@@ -108,5 +106,3 @@ if __name__ == "__main__":
         dataset_path_map=DATASET_PATH_MAP,
         out_path=output_file
     )
-
-

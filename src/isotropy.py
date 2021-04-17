@@ -1,7 +1,6 @@
 import argparse
 import math
 import json
-import logging
 import os
 from datetime import datetime
 
@@ -9,28 +8,7 @@ import numpy as np
 from transformers import AutoModel
 from post_processing import all_but_the_top, remove_mean
 
-
 np.random.seed(4)
-
-# Logging setup
-logPath = "../"
-log_filename = "isotropy_logs"
-
-logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-rootLogger = logging.getLogger('embeddings_benchmark')
-rootLogger.setLevel(logging.DEBUG)
-
-fileHandler = logging.FileHandler("{0}/{1}.log".format(logPath, log_filename))
-fileHandler.setFormatter(logFormatter)
-fileHandler.setLevel(logging.DEBUG)
-
-rootLogger.addHandler(fileHandler)
-
-consoleHandler = logging.StreamHandler()
-consoleHandler.setFormatter(logFormatter)
-consoleHandler.setLevel(logging.DEBUG)
-
-rootLogger.addHandler(consoleHandler)
 
 MODELS = [
     'roberta-large', 'roberta-base',
@@ -86,10 +64,10 @@ def run(models_list, out_path):
             "post_processed_fixed": iso_post_processed
         }
 
-        rootLogger.info(f"{model_name}::\t"
-                        f"raw: {iso_raw};\t"
-                        f"centered: {iso_centered};\t"
-                        f"post_processed_fixed: {iso_post_processed}")
+        print(f"{model_name}::\t"
+              f"raw: {iso_raw};\t"
+              f"centered: {iso_centered};\t"
+              f"post_processed_fixed: {iso_post_processed}")
 
     # write out
     with open(out_path, 'w') as fp:
@@ -97,13 +75,12 @@ def run(models_list, out_path):
 
 
 if __name__ == "__main__":
-
-    output_file = os.path.join(os.getcwd(), os.pardir,
+    output_file = os.path.join(os.getcwd(),
                                'experiments/isotropy/',
                                '{}.json'.format(datetime.now().strftime("%d%m%Y%H%M%S")))
 
     parser = argparse.ArgumentParser(description='Isotropy experiment.')
-    parser.add_argument('--model', type=str,  default='',
+    parser.add_argument('--model', type=str, default='',
                         help='Name of a pre-trained model from HuggingFace. '
                              'If none provided, runs eval on each model in: {}'.format(' '.join(MODELS)))
     parser.add_argument('--output', type=str,
@@ -114,6 +91,3 @@ if __name__ == "__main__":
     output_file = args.output if len(args.output) > 0 else output_file
 
     run(models, out_path=output_file)
-
-
-
